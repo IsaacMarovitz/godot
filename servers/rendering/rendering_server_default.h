@@ -722,8 +722,8 @@ public:
 	FUNC2(viewport_set_snap_2d_transforms_to_pixel, RID, bool)
 	FUNC2(viewport_set_snap_2d_vertices_to_pixel, RID, bool)
 
-	FUNC2(viewport_set_default_canvas_item_texture_filter, RID, CanvasItemTextureFilter)
-	FUNC2(viewport_set_default_canvas_item_texture_repeat, RID, CanvasItemTextureRepeat)
+	FUNC2(viewport_set_default_canvas_item_texture_filter, RID, SamplerFilter)
+	FUNC2(viewport_set_default_canvas_item_texture_repeat, RID, SamplerAddressMode)
 
 	FUNC2(viewport_set_global_canvas_transform, RID, const Transform2D &)
 	FUNC4(viewport_set_canvas_stacking, RID, RID, int, int)
@@ -940,14 +940,14 @@ public:
 	FUNC3(canvas_texture_set_channel, RID, CanvasTextureChannel, RID)
 	FUNC3(canvas_texture_set_shading_parameters, RID, const Color &, float)
 
-	FUNC2(canvas_texture_set_texture_filter, RID, CanvasItemTextureFilter)
-	FUNC2(canvas_texture_set_texture_repeat, RID, CanvasItemTextureRepeat)
+	FUNC2(canvas_texture_set_texture_filter, RID, SamplerFilter)
+	FUNC2(canvas_texture_set_texture_repeat, RID, SamplerAddressMode)
 
 	FUNCRIDSPLIT(canvas_item)
 	FUNC2(canvas_item_set_parent, RID, RID)
 
-	FUNC2(canvas_item_set_default_texture_filter, RID, CanvasItemTextureFilter)
-	FUNC2(canvas_item_set_default_texture_repeat, RID, CanvasItemTextureRepeat)
+	FUNC2(canvas_item_set_default_texture_filter, RID, SamplerFilter)
+	FUNC2(canvas_item_set_default_texture_repeat, RID, SamplerAddressMode)
 
 	FUNC2(canvas_item_set_visible, RID, bool)
 	FUNC2(canvas_item_set_light_mask, RID, int)

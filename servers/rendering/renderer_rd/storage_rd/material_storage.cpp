@@ -1205,18 +1205,18 @@ template void MaterialStorage::Samplers::append_uniforms(Vector<RD::Uniform> &p_
 template <typename Collection>
 void MaterialStorage::Samplers::append_uniforms(Collection &p_uniforms, int p_first_index) const {
 	// Binding ids are aligned with samplers_inc.glsl.
-	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 0, rids[RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST][RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED]));
-	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 1, rids[RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR][RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED]));
-	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 2, rids[RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS][RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED]));
-	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 3, rids[RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS][RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED]));
-	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 4, rids[RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC][RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED]));
-	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 5, rids[RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC][RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED]));
-	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 6, rids[RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST][RS::CANVAS_ITEM_TEXTURE_REPEAT_ENABLED]));
-	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 7, rids[RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR][RS::CANVAS_ITEM_TEXTURE_REPEAT_ENABLED]));
-	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 8, rids[RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS][RS::CANVAS_ITEM_TEXTURE_REPEAT_ENABLED]));
-	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 9, rids[RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS][RS::CANVAS_ITEM_TEXTURE_REPEAT_ENABLED]));
-	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 10, rids[RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC][RS::CANVAS_ITEM_TEXTURE_REPEAT_ENABLED]));
-	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 11, rids[RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC][RS::CANVAS_ITEM_TEXTURE_REPEAT_ENABLED]));
+	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 0, rids[RS::SAMPLER_FILTER_NEAREST][RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE]));
+	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 1, rids[RS::SAMPLER_FILTER_LINEAR][RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE]));
+	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 2, rids[RS::SAMPLER_FILTER_NEAREST_WITH_MIPMAPS][RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE]));
+	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 3, rids[RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS][RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE]));
+	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 4, rids[RS::SAMPLER_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC][RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE]));
+	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 5, rids[RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC][RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE]));
+	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 6, rids[RS::SAMPLER_FILTER_NEAREST][RS::SAMPLER_ADDRESS_MODE_REPEAT]));
+	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 7, rids[RS::SAMPLER_FILTER_LINEAR][RS::SAMPLER_ADDRESS_MODE_REPEAT]));
+	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 8, rids[RS::SAMPLER_FILTER_NEAREST_WITH_MIPMAPS][RS::SAMPLER_ADDRESS_MODE_REPEAT]));
+	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 9, rids[RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS][RS::SAMPLER_ADDRESS_MODE_REPEAT]));
+	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 10, rids[RS::SAMPLER_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC][RS::SAMPLER_ADDRESS_MODE_REPEAT]));
+	p_uniforms.push_back(RD::Uniform(RD::UNIFORM_TYPE_SAMPLER, p_first_index + 11, rids[RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC][RS::SAMPLER_ADDRESS_MODE_REPEAT]));
 }
 
 bool MaterialStorage::Samplers::is_valid() const {
@@ -2379,34 +2379,34 @@ MaterialStorage::Samplers MaterialStorage::samplers_rd_allocate(float p_mipmap_b
 	RD::SamplerFilter mip_filter = samplers.use_nearest_mipmap_filter ? RD::SAMPLER_FILTER_NEAREST : RD::SAMPLER_FILTER_LINEAR;
 	float anisotropy_max = float(1 << samplers.anisotropic_filtering_level);
 
-	for (int i = 1; i < RS::CANVAS_ITEM_TEXTURE_FILTER_MAX; i++) {
-		for (int j = 1; j < RS::CANVAS_ITEM_TEXTURE_REPEAT_MAX; j++) {
+	for (int i = 1; i < RS::SAMPLER_FILTER_MAX; i++) {
+		for (int j = 1; j < RS::SAMPLER_ADDRESS_MODE_MAX; j++) {
 			RD::SamplerState sampler_state;
 			switch (i) {
-				case RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST: {
+				case RS::SAMPLER_FILTER_NEAREST: {
 					sampler_state.mag_filter = RD::SAMPLER_FILTER_NEAREST;
 					sampler_state.min_filter = RD::SAMPLER_FILTER_NEAREST;
 					sampler_state.max_lod = 0;
 				} break;
-				case RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR: {
+				case RS::SAMPLER_FILTER_LINEAR: {
 					sampler_state.mag_filter = RD::SAMPLER_FILTER_LINEAR;
 					sampler_state.min_filter = RD::SAMPLER_FILTER_LINEAR;
 					sampler_state.max_lod = 0;
 				} break;
-				case RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS: {
+				case RS::SAMPLER_FILTER_NEAREST_WITH_MIPMAPS: {
 					sampler_state.mag_filter = RD::SAMPLER_FILTER_NEAREST;
 					sampler_state.min_filter = RD::SAMPLER_FILTER_NEAREST;
 					sampler_state.mip_filter = mip_filter;
 					sampler_state.lod_bias = samplers.mipmap_bias;
 				} break;
-				case RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS: {
+				case RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS: {
 					sampler_state.mag_filter = RD::SAMPLER_FILTER_LINEAR;
 					sampler_state.min_filter = RD::SAMPLER_FILTER_LINEAR;
 					sampler_state.mip_filter = mip_filter;
 					sampler_state.lod_bias = samplers.mipmap_bias;
 
 				} break;
-				case RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC: {
+				case RS::SAMPLER_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC: {
 					sampler_state.mag_filter = RD::SAMPLER_FILTER_NEAREST;
 					sampler_state.min_filter = RD::SAMPLER_FILTER_NEAREST;
 					sampler_state.mip_filter = mip_filter;
@@ -2414,7 +2414,7 @@ MaterialStorage::Samplers MaterialStorage::samplers_rd_allocate(float p_mipmap_b
 					sampler_state.use_anisotropy = true;
 					sampler_state.anisotropy_max = anisotropy_max;
 				} break;
-				case RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC: {
+				case RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC: {
 					sampler_state.mag_filter = RD::SAMPLER_FILTER_LINEAR;
 					sampler_state.min_filter = RD::SAMPLER_FILTER_LINEAR;
 					sampler_state.mip_filter = mip_filter;
@@ -2427,18 +2427,18 @@ MaterialStorage::Samplers MaterialStorage::samplers_rd_allocate(float p_mipmap_b
 				}
 			}
 			switch (j) {
-				case RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED: {
+				case RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE: {
 					sampler_state.repeat_u = RD::SAMPLER_REPEAT_MODE_CLAMP_TO_EDGE;
 					sampler_state.repeat_v = RD::SAMPLER_REPEAT_MODE_CLAMP_TO_EDGE;
 					sampler_state.repeat_w = RD::SAMPLER_REPEAT_MODE_CLAMP_TO_EDGE;
 
 				} break;
-				case RS::CANVAS_ITEM_TEXTURE_REPEAT_ENABLED: {
+				case RS::SAMPLER_ADDRESS_MODE_REPEAT: {
 					sampler_state.repeat_u = RD::SAMPLER_REPEAT_MODE_REPEAT;
 					sampler_state.repeat_v = RD::SAMPLER_REPEAT_MODE_REPEAT;
 					sampler_state.repeat_w = RD::SAMPLER_REPEAT_MODE_REPEAT;
 				} break;
-				case RS::CANVAS_ITEM_TEXTURE_REPEAT_MIRROR: {
+				case RS::SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT: {
 					sampler_state.repeat_u = RD::SAMPLER_REPEAT_MODE_MIRRORED_REPEAT;
 					sampler_state.repeat_v = RD::SAMPLER_REPEAT_MODE_MIRRORED_REPEAT;
 					sampler_state.repeat_w = RD::SAMPLER_REPEAT_MODE_MIRRORED_REPEAT;
@@ -2455,8 +2455,8 @@ MaterialStorage::Samplers MaterialStorage::samplers_rd_allocate(float p_mipmap_b
 }
 
 void MaterialStorage::samplers_rd_free(Samplers &p_samplers) const {
-	for (int i = 1; i < RS::CANVAS_ITEM_TEXTURE_FILTER_MAX; i++) {
-		for (int j = 1; j < RS::CANVAS_ITEM_TEXTURE_REPEAT_MAX; j++) {
+	for (int i = 1; i < RS::SAMPLER_FILTER_MAX; i++) {
+		for (int j = 1; j < RS::SAMPLER_ADDRESS_MODE_MAX; j++) {
 			if (p_samplers.rids[i][j].is_valid()) {
 				RD::get_singleton()->free(p_samplers.rids[i][j]);
 				p_samplers.rids[i][j] = RID();

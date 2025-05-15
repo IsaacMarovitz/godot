@@ -498,8 +498,8 @@ protected:
 	static void _bind_methods();
 	void _validate_property(PropertyInfo &p_property) const;
 
-	virtual void _update_self_texture_filter(RS::CanvasItemTextureFilter p_texture_filter) override;
-	virtual void _update_self_texture_repeat(RS::CanvasItemTextureRepeat p_texture_repeat) override;
+	virtual void _update_self_texture_filter(RS::SamplerFilter p_texture_filter) override;
+	virtual void _update_self_texture_repeat(RS::SamplerAddressMode p_texture_repeat) override;
 
 public:
 #ifdef TOOLS_ENABLED

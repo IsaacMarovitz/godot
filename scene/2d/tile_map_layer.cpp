@@ -318,8 +318,8 @@ void TileMapLayer::_rendering_update(bool p_force_cleanup) {
 						rs->canvas_item_set_z_index(ci, tile_z_index);
 						rs->canvas_item_set_self_modulate(ci, get_self_modulate());
 
-						rs->canvas_item_set_default_texture_filter(ci, RS::CanvasItemTextureFilter(get_texture_filter_in_tree()));
-						rs->canvas_item_set_default_texture_repeat(ci, RS::CanvasItemTextureRepeat(get_texture_repeat_in_tree()));
+						rs->canvas_item_set_default_texture_filter(ci, RS::SamplerFilter(get_texture_filter_in_tree()));
+						rs->canvas_item_set_default_texture_repeat(ci, RS::SamplerAddressMode(get_texture_repeat_in_tree()));
 
 						rendering_quadrant->canvas_items.push_back(ci);
 
@@ -396,8 +396,8 @@ void TileMapLayer::_rendering_update(bool p_force_cleanup) {
 				Ref<RenderingQuadrant> &rendering_quadrant = kv.value;
 				for (const RID &ci : rendering_quadrant->canvas_items) {
 					rs->canvas_item_set_light_mask(ci, get_light_mask());
-					rs->canvas_item_set_default_texture_filter(ci, RS::CanvasItemTextureFilter(get_texture_filter_in_tree()));
-					rs->canvas_item_set_default_texture_repeat(ci, RS::CanvasItemTextureRepeat(get_texture_repeat_in_tree()));
+					rs->canvas_item_set_default_texture_filter(ci, RS::SamplerFilter(get_texture_filter_in_tree()));
+					rs->canvas_item_set_default_texture_repeat(ci, RS::SamplerAddressMode(get_texture_repeat_in_tree()));
 					rs->canvas_item_set_self_modulate(ci, get_self_modulate());
 				}
 			}
@@ -2214,7 +2214,7 @@ void TileMapLayer::_validate_property(PropertyInfo &p_property) const {
 	}
 }
 
-void TileMapLayer::_update_self_texture_filter(RS::CanvasItemTextureFilter p_texture_filter) {
+void TileMapLayer::_update_self_texture_filter(RS::SamplerFilter p_texture_filter) {
 	// Set a default texture filter for the whole tilemap.
 	CanvasItem::_update_self_texture_filter(p_texture_filter);
 	dirty.flags[DIRTY_FLAGS_LAYER_TEXTURE_FILTER] = true;
@@ -2222,7 +2222,7 @@ void TileMapLayer::_update_self_texture_filter(RS::CanvasItemTextureFilter p_tex
 	emit_signal(CoreStringName(changed));
 }
 
-void TileMapLayer::_update_self_texture_repeat(RS::CanvasItemTextureRepeat p_texture_repeat) {
+void TileMapLayer::_update_self_texture_repeat(RS::SamplerAddressMode p_texture_repeat) {
 	// Set a default texture repeat for the whole tilemap.
 	CanvasItem::_update_self_texture_repeat(p_texture_repeat);
 	dirty.flags[DIRTY_FLAGS_LAYER_TEXTURE_REPEAT] = true;

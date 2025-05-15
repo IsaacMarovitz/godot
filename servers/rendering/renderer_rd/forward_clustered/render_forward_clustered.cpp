@@ -153,7 +153,7 @@ void RenderForwardClustered::RenderBufferDataForwardClustered::configure(RenderS
 	}
 	cluster_builder->set_shared(RenderForwardClustered::get_singleton()->get_cluster_builder_shared());
 
-	RID sampler = RendererRD::MaterialStorage::get_singleton()->sampler_rd_get_default(RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+	RID sampler = RendererRD::MaterialStorage::get_singleton()->sampler_rd_get_default(RS::SAMPLER_FILTER_NEAREST, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 	cluster_builder->setup(p_render_buffers->get_internal_size(), p_render_buffers->get_max_cluster_elements(), p_render_buffers->get_depth_texture(), sampler, p_render_buffers->get_internal_texture());
 }
 
@@ -3193,7 +3193,7 @@ void RenderForwardClustered::_update_render_base_uniform_set() {
 			RD::Uniform u;
 			u.binding = 14;
 			u.uniform_type = RD::UNIFORM_TYPE_SAMPLER;
-			u.append_id(RendererRD::MaterialStorage::get_singleton()->sampler_rd_get_default(RS::CanvasItemTextureFilter::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS, RS::CanvasItemTextureRepeat::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED));
+			u.append_id(RendererRD::MaterialStorage::get_singleton()->sampler_rd_get_default(RS::SamplerFilter::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS, RS::SamplerAddressMode::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE));
 			uniforms.push_back(u);
 		}
 
@@ -3383,22 +3383,22 @@ RID RenderForwardClustered::_setup_render_pass_uniform_set(RenderListType p_rend
 		RID sampler;
 		switch (decals_get_filter()) {
 			case RS::DECAL_FILTER_NEAREST: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_NEAREST, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::DECAL_FILTER_LINEAR: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_LINEAR, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::DECAL_FILTER_NEAREST_MIPMAPS: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_NEAREST_WITH_MIPMAPS, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::DECAL_FILTER_LINEAR_MIPMAPS: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::DECAL_FILTER_NEAREST_MIPMAPS_ANISOTROPIC: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::DECAL_FILTER_LINEAR_MIPMAPS_ANISOTROPIC: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 		}
 
@@ -3413,22 +3413,22 @@ RID RenderForwardClustered::_setup_render_pass_uniform_set(RenderListType p_rend
 		RID sampler;
 		switch (light_projectors_get_filter()) {
 			case RS::LIGHT_PROJECTOR_FILTER_NEAREST: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_NEAREST, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::LIGHT_PROJECTOR_FILTER_LINEAR: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_LINEAR, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::LIGHT_PROJECTOR_FILTER_NEAREST_MIPMAPS: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_NEAREST_WITH_MIPMAPS, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::LIGHT_PROJECTOR_FILTER_LINEAR_MIPMAPS: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::LIGHT_PROJECTOR_FILTER_NEAREST_MIPMAPS_ANISOTROPIC: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::LIGHT_PROJECTOR_FILTER_LINEAR_MIPMAPS_ANISOTROPIC: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 		}
 
@@ -3683,22 +3683,22 @@ RID RenderForwardClustered::_setup_sdfgi_render_pass_uniform_set(RID p_albedo_te
 		RID sampler;
 		switch (decals_get_filter()) {
 			case RS::DECAL_FILTER_NEAREST: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_NEAREST, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::DECAL_FILTER_LINEAR: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_LINEAR, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::DECAL_FILTER_NEAREST_MIPMAPS: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_NEAREST_WITH_MIPMAPS, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::DECAL_FILTER_LINEAR_MIPMAPS: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::DECAL_FILTER_NEAREST_MIPMAPS_ANISOTROPIC: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::DECAL_FILTER_LINEAR_MIPMAPS_ANISOTROPIC: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 		}
 
@@ -3713,22 +3713,22 @@ RID RenderForwardClustered::_setup_sdfgi_render_pass_uniform_set(RID p_albedo_te
 		RID sampler;
 		switch (light_projectors_get_filter()) {
 			case RS::LIGHT_PROJECTOR_FILTER_NEAREST: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_NEAREST, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::LIGHT_PROJECTOR_FILTER_LINEAR: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_LINEAR, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::LIGHT_PROJECTOR_FILTER_NEAREST_MIPMAPS: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_NEAREST_WITH_MIPMAPS, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::LIGHT_PROJECTOR_FILTER_LINEAR_MIPMAPS: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::LIGHT_PROJECTOR_FILTER_NEAREST_MIPMAPS_ANISOTROPIC: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 			case RS::LIGHT_PROJECTOR_FILTER_LINEAR_MIPMAPS_ANISOTROPIC: {
-				sampler = p_samplers.get_sampler(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+				sampler = p_samplers.get_sampler(RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			} break;
 		}
 

@@ -504,7 +504,7 @@ RID RendererCanvasRenderRD::_get_pipeline_specialization_or_ubershader(CanvasSha
 	return RID();
 }
 
-void RendererCanvasRenderRD::canvas_render_items(RID p_to_render_target, Item *p_item_list, const Color &p_modulate, Light *p_light_list, Light *p_directional_light_list, const Transform2D &p_canvas_transform, RenderingServer::CanvasItemTextureFilter p_default_filter, RenderingServer::CanvasItemTextureRepeat p_default_repeat, bool p_snap_2d_vertices_to_pixel, bool &r_sdf_used, RenderingMethod::RenderInfo *r_render_info) {
+void RendererCanvasRenderRD::canvas_render_items(RID p_to_render_target, Item *p_item_list, const Color &p_modulate, Light *p_light_list, Light *p_directional_light_list, const Transform2D &p_canvas_transform, RenderingServer::SamplerFilter p_default_filter, RenderingServer::SamplerAddressMode p_default_repeat, bool p_snap_2d_vertices_to_pixel, bool &r_sdf_used, RenderingMethod::RenderInfo *r_render_info) {
 	RendererRD::TextureStorage *texture_storage = RendererRD::TextureStorage::get_singleton();
 	RendererRD::MaterialStorage *material_storage = RendererRD::MaterialStorage::get_singleton();
 	RendererRD::MeshStorage *mesh_storage = RendererRD::MeshStorage::get_singleton();
@@ -1715,8 +1715,8 @@ RendererCanvasRenderRD::RendererCanvasRenderRD() {
 
 	{ //create default samplers
 
-		default_samplers.default_filter = RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR;
-		default_samplers.default_repeat = RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED;
+		default_samplers.default_filter = RS::SAMPLER_FILTER_LINEAR;
+		default_samplers.default_repeat = RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
 	}
 
 	// preallocate 5 slots for uniform set 3
@@ -2326,8 +2326,8 @@ RendererCanvasRenderRD::InstanceData *RendererCanvasRenderRD::new_instance_data(
 }
 
 void RendererCanvasRenderRD::_record_item_commands(const Item *p_item, RenderTarget p_render_target, const Transform2D &p_base_transform, Item *&r_current_clip, Light *p_lights, uint32_t &r_index, bool &r_batch_broken, bool &r_sdf_used, Batch *&r_current_batch) {
-	const RenderingServer::CanvasItemTextureFilter texture_filter = p_item->texture_filter == RS::CANVAS_ITEM_TEXTURE_FILTER_DEFAULT ? default_filter : p_item->texture_filter;
-	const RenderingServer::CanvasItemTextureRepeat texture_repeat = p_item->texture_repeat == RS::CANVAS_ITEM_TEXTURE_REPEAT_DEFAULT ? default_repeat : p_item->texture_repeat;
+	const RenderingServer::SamplerFilter texture_filter = p_item->texture_filter == RS::SAMPLER_FILTER_DEFAULT ? default_filter : p_item->texture_filter;
+	const RenderingServer::SamplerAddressMode texture_repeat = p_item->texture_repeat == RS::SAMPLER_ADDRESS_MODE_DEFAULT ? default_repeat : p_item->texture_repeat;
 
 	Transform2D base_transform = p_base_transform;
 
@@ -2404,9 +2404,9 @@ void RendererCanvasRenderRD::_record_item_commands(const Item *p_item, RenderTar
 					r_current_batch->flags = 0;
 				}
 
-				RenderingServer::CanvasItemTextureRepeat rect_repeat = texture_repeat;
+				RenderingServer::SamplerAddressMode rect_repeat = texture_repeat;
 				if (bool(rect->flags & CANVAS_RECT_TILE)) {
-					rect_repeat = RenderingServer::CanvasItemTextureRepeat::CANVAS_ITEM_TEXTURE_REPEAT_ENABLED;
+					rect_repeat = RenderingServer::SamplerAddressMode::SAMPLER_ADDRESS_MODE_REPEAT;
 				}
 
 				Color modulated = rect->modulate * base_color;

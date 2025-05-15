@@ -260,8 +260,8 @@ public:
 		uint32_t instance_buffer_index = 0;
 
 		RID tex;
-		RS::CanvasItemTextureFilter filter = RS::CANVAS_ITEM_TEXTURE_FILTER_MAX;
-		RS::CanvasItemTextureRepeat repeat = RS::CANVAS_ITEM_TEXTURE_REPEAT_MAX;
+		RS::SamplerFilter filter = RS::SAMPLER_FILTER_MAX;
+		RS::SamplerAddressMode repeat = RS::SAMPLER_ADDRESS_MODE_MAX;
 
 		GLES3::CanvasShaderData::BlendMode blend_mode = GLES3::CanvasShaderData::BLEND_MODE_MIX;
 		Color blend_color = Color(1.0, 1.0, 1.0, 1.0);
@@ -314,15 +314,15 @@ public:
 		bool using_directional_lights = false;
 
 		RID current_tex;
-		RS::CanvasItemTextureFilter current_filter_mode = RS::CANVAS_ITEM_TEXTURE_FILTER_MAX;
-		RS::CanvasItemTextureRepeat current_repeat_mode = RS::CANVAS_ITEM_TEXTURE_REPEAT_MAX;
+		RS::SamplerFilter current_filter_mode = RS::SAMPLER_FILTER_MAX;
+		RS::SamplerAddressMode current_repeat_mode = RS::SAMPLER_ADDRESS_MODE_MAX;
 
 		bool transparent_render_target = false;
 
 		double time = 0.0;
 
-		RS::CanvasItemTextureFilter default_filter = RS::CANVAS_ITEM_TEXTURE_FILTER_DEFAULT;
-		RS::CanvasItemTextureRepeat default_repeat = RS::CANVAS_ITEM_TEXTURE_REPEAT_DEFAULT;
+		RS::SamplerFilter default_filter = RS::SAMPLER_FILTER_DEFAULT;
+		RS::SamplerAddressMode default_repeat = RS::SAMPLER_ADDRESS_MODE_DEFAULT;
 	} state;
 
 	Item *items[MAX_RENDER_ITEMS];
@@ -357,10 +357,10 @@ public:
 	bool free(RID p_rid) override;
 	void update() override;
 
-	void _bind_canvas_texture(RID p_texture, RS::CanvasItemTextureFilter p_base_filter, RS::CanvasItemTextureRepeat p_base_repeat);
-	void _prepare_canvas_texture(RID p_texture, RS::CanvasItemTextureFilter p_base_filter, RS::CanvasItemTextureRepeat p_base_repeat, uint32_t &r_index, Size2 &r_texpixel_size);
+	void _bind_canvas_texture(RID p_texture, RS::SamplerFilter p_base_filter, RS::SamplerAddressMode p_base_repeat);
+	void _prepare_canvas_texture(RID p_texture, RS::SamplerFilter p_base_filter, RS::SamplerAddressMode p_base_repeat, uint32_t &r_index, Size2 &r_texpixel_size);
 
-	void canvas_render_items(RID p_to_render_target, Item *p_item_list, const Color &p_modulate, Light *p_light_list, Light *p_directional_list, const Transform2D &p_canvas_transform, RS::CanvasItemTextureFilter p_default_filter, RS::CanvasItemTextureRepeat p_default_repeat, bool p_snap_2d_vertices_to_pixel, bool &r_sdf_used, RenderingMethod::RenderInfo *r_render_info = nullptr) override;
+	void canvas_render_items(RID p_to_render_target, Item *p_item_list, const Color &p_modulate, Light *p_light_list, Light *p_directional_list, const Transform2D &p_canvas_transform, RS::SamplerFilter p_default_filter, RS::SamplerAddressMode p_default_repeat, bool p_snap_2d_vertices_to_pixel, bool &r_sdf_used, RenderingMethod::RenderInfo *r_render_info = nullptr) override;
 	void _render_items(RID p_to_render_target, int p_item_count, const Transform2D &p_canvas_transform_inverse, Light *p_lights, bool &r_sdf_used, bool p_to_backbuffer = false, RenderingMethod::RenderInfo *r_render_info = nullptr, bool p_backbuffer_has_mipmaps = false);
 	void _record_item_commands(const Item *p_item, RID p_render_target, const Transform2D &p_canvas_transform_inverse, Item *&current_clip, GLES3::CanvasShaderData::BlendMode p_blend_mode, Light *p_lights, uint32_t &r_index, bool &r_break_batch, bool &r_sdf_used, const Point2 &p_repeat_offset);
 	void _render_batch(Light *p_lights, uint32_t p_index, RenderingMethod::RenderInfo *r_render_info = nullptr);

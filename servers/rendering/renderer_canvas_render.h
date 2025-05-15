@@ -459,8 +459,8 @@ public:
 			light_masked = false;
 		}
 
-		RS::CanvasItemTextureFilter texture_filter;
-		RS::CanvasItemTextureRepeat texture_repeat;
+		RS::SamplerFilter texture_filter;
+		RS::SamplerAddressMode texture_repeat;
 
 		Item() {
 			commands = nullptr;
@@ -483,8 +483,8 @@ public:
 			light_masked = false;
 			update_when_visible = false;
 			z_final = 0;
-			texture_filter = RS::CANVAS_ITEM_TEXTURE_FILTER_DEFAULT;
-			texture_repeat = RS::CANVAS_ITEM_TEXTURE_REPEAT_DEFAULT;
+			texture_filter = RS::SAMPLER_FILTER_DEFAULT;
+			texture_repeat = RS::SAMPLER_ADDRESS_MODE_DEFAULT;
 			repeat_source = false;
 			on_interpolate_transform_list = false;
 			interpolated = true;
@@ -501,7 +501,7 @@ public:
 		}
 	};
 
-	virtual void canvas_render_items(RID p_to_render_target, Item *p_item_list, const Color &p_modulate, Light *p_light_list, Light *p_directional_list, const Transform2D &p_canvas_transform, RS::CanvasItemTextureFilter p_default_filter, RS::CanvasItemTextureRepeat p_default_repeat, bool p_snap_2d_vertices_to_pixel, bool &r_sdf_used, RenderingMethod::RenderInfo *r_render_info = nullptr) = 0;
+	virtual void canvas_render_items(RID p_to_render_target, Item *p_item_list, const Color &p_modulate, Light *p_light_list, Light *p_directional_list, const Transform2D &p_canvas_transform, RS::SamplerFilter p_default_filter, RS::SamplerAddressMode p_default_repeat, bool p_snap_2d_vertices_to_pixel, bool &r_sdf_used, RenderingMethod::RenderInfo *r_render_info = nullptr) = 0;
 
 	struct LightOccluderInstance {
 		bool enabled : 1;

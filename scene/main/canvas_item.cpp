@@ -1591,14 +1591,14 @@ void CanvasItem::_refresh_texture_filter_cache() const {
 		if (parent_item) {
 			texture_filter_cache = parent_item->texture_filter_cache;
 		} else {
-			texture_filter_cache = RS::CANVAS_ITEM_TEXTURE_FILTER_DEFAULT;
+			texture_filter_cache = RS::SAMPLER_FILTER_DEFAULT;
 		}
 	} else {
-		texture_filter_cache = RS::CanvasItemTextureFilter(texture_filter);
+		texture_filter_cache = RS::SamplerFilter(texture_filter);
 	}
 }
 
-void CanvasItem::_update_self_texture_filter(RS::CanvasItemTextureFilter p_texture_filter) {
+void CanvasItem::_update_self_texture_filter(RS::SamplerFilter p_texture_filter) {
 	RS::get_singleton()->canvas_item_set_default_texture_filter(get_canvas_item(), p_texture_filter);
 	queue_redraw();
 }
@@ -1645,14 +1645,14 @@ void CanvasItem::_refresh_texture_repeat_cache() const {
 		if (parent_item) {
 			texture_repeat_cache = parent_item->texture_repeat_cache;
 		} else {
-			texture_repeat_cache = RS::CANVAS_ITEM_TEXTURE_REPEAT_DEFAULT;
+			texture_repeat_cache = RS::SAMPLER_ADDRESS_MODE_DEFAULT;
 		}
 	} else {
-		texture_repeat_cache = RS::CanvasItemTextureRepeat(texture_repeat);
+		texture_repeat_cache = RS::SamplerAddressMode(texture_repeat);
 	}
 }
 
-void CanvasItem::_update_self_texture_repeat(RS::CanvasItemTextureRepeat p_texture_repeat) {
+void CanvasItem::_update_self_texture_repeat(RS::SamplerAddressMode p_texture_repeat) {
 	RS::get_singleton()->canvas_item_set_default_texture_repeat(get_canvas_item(), p_texture_repeat);
 	queue_redraw();
 }
@@ -1812,7 +1812,7 @@ void CanvasTexture::set_texture_filter(CanvasItem::TextureFilter p_filter) {
 		return;
 	}
 	texture_filter = p_filter;
-	RS::get_singleton()->canvas_texture_set_texture_filter(canvas_texture, RS::CanvasItemTextureFilter(p_filter));
+	RS::get_singleton()->canvas_texture_set_texture_filter(canvas_texture, RS::SamplerFilter(p_filter));
 	emit_changed();
 }
 CanvasItem::TextureFilter CanvasTexture::get_texture_filter() const {
@@ -1824,7 +1824,7 @@ void CanvasTexture::set_texture_repeat(CanvasItem::TextureRepeat p_repeat) {
 		return;
 	}
 	texture_repeat = p_repeat;
-	RS::get_singleton()->canvas_texture_set_texture_repeat(canvas_texture, RS::CanvasItemTextureRepeat(p_repeat));
+	RS::get_singleton()->canvas_texture_set_texture_repeat(canvas_texture, RS::SamplerAddressMode(p_repeat));
 	emit_changed();
 }
 CanvasItem::TextureRepeat CanvasTexture::get_texture_repeat() const {

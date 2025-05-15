@@ -197,6 +197,27 @@ public:
 	virtual RID texture_get_rd_texture(RID p_texture, bool p_srgb = false) const = 0;
 	virtual uint64_t texture_get_native_handle(RID p_texture, bool p_srgb = false) const = 0;
 
+	/* SAMPLERS API */
+
+	enum SamplerFilter {
+		SAMPLER_FILTER_DEFAULT,
+		SAMPLER_FILTER_NEAREST,
+		SAMPLER_FILTER_LINEAR,
+		SAMPLER_FILTER_NEAREST_WITH_MIPMAPS,
+		SAMPLER_FILTER_LINEAR_WITH_MIPMAPS,
+		SAMPLER_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC,
+		SAMPLER_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC,
+		SAMPLER_FILTER_MAX
+	};
+
+	enum SamplerAddressMode {
+		SAMPLER_ADDRESS_MODE_DEFAULT,
+		SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE,
+		SAMPLER_ADDRESS_MODE_REPEAT,
+		SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT,
+		SAMPLER_ADDRESS_MODE_MAX,
+	};
+
 	/* PIPELINES API */
 
 	enum PipelineSource {
@@ -918,25 +939,6 @@ public:
 
 	/* VIEWPORT API */
 
-	enum CanvasItemTextureFilter {
-		CANVAS_ITEM_TEXTURE_FILTER_DEFAULT, // Uses canvas item setting for draw command, uses global setting for canvas item.
-		CANVAS_ITEM_TEXTURE_FILTER_NEAREST,
-		CANVAS_ITEM_TEXTURE_FILTER_LINEAR,
-		CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS,
-		CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS,
-		CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS_ANISOTROPIC,
-		CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC,
-		CANVAS_ITEM_TEXTURE_FILTER_MAX
-	};
-
-	enum CanvasItemTextureRepeat {
-		CANVAS_ITEM_TEXTURE_REPEAT_DEFAULT, // Uses canvas item setting for draw command, uses global setting for canvas item.
-		CANVAS_ITEM_TEXTURE_REPEAT_DISABLED,
-		CANVAS_ITEM_TEXTURE_REPEAT_ENABLED,
-		CANVAS_ITEM_TEXTURE_REPEAT_MIRROR,
-		CANVAS_ITEM_TEXTURE_REPEAT_MAX,
-	};
-
 	virtual RID viewport_create() = 0;
 
 	enum ViewportScaling3DMode {
@@ -1033,8 +1035,8 @@ public:
 	virtual void viewport_set_snap_2d_transforms_to_pixel(RID p_viewport, bool p_enabled) = 0;
 	virtual void viewport_set_snap_2d_vertices_to_pixel(RID p_viewport, bool p_enabled) = 0;
 
-	virtual void viewport_set_default_canvas_item_texture_filter(RID p_viewport, CanvasItemTextureFilter p_filter) = 0;
-	virtual void viewport_set_default_canvas_item_texture_repeat(RID p_viewport, CanvasItemTextureRepeat p_repeat) = 0;
+	virtual void viewport_set_default_canvas_item_texture_filter(RID p_viewport, SamplerFilter p_filter) = 0;
+	virtual void viewport_set_default_canvas_item_texture_repeat(RID p_viewport, SamplerAddressMode p_repeat) = 0;
 
 	virtual void viewport_set_global_canvas_transform(RID p_viewport, const Transform2D &p_transform) = 0;
 	virtual void viewport_set_canvas_stacking(RID p_viewport, RID p_canvas, int p_layer, int p_sublayer) = 0;
@@ -1537,16 +1539,16 @@ public:
 	virtual void canvas_texture_set_shading_parameters(RID p_canvas_texture, const Color &p_base_color, float p_shininess) = 0;
 
 	// Takes effect only for new draw commands.
-	virtual void canvas_texture_set_texture_filter(RID p_canvas_texture, CanvasItemTextureFilter p_filter) = 0;
-	virtual void canvas_texture_set_texture_repeat(RID p_canvas_texture, CanvasItemTextureRepeat p_repeat) = 0;
+	virtual void canvas_texture_set_texture_filter(RID p_canvas_texture, SamplerFilter p_filter) = 0;
+	virtual void canvas_texture_set_texture_repeat(RID p_canvas_texture, SamplerAddressMode p_repeat) = 0;
 
 	/* CANVAS ITEM */
 
 	virtual RID canvas_item_create() = 0;
 	virtual void canvas_item_set_parent(RID p_item, RID p_parent) = 0;
 
-	virtual void canvas_item_set_default_texture_filter(RID p_item, CanvasItemTextureFilter p_filter) = 0;
-	virtual void canvas_item_set_default_texture_repeat(RID p_item, CanvasItemTextureRepeat p_repeat) = 0;
+	virtual void canvas_item_set_default_texture_filter(RID p_item, SamplerFilter p_filter) = 0;
+	virtual void canvas_item_set_default_texture_repeat(RID p_item, SamplerAddressMode p_repeat) = 0;
 
 	virtual void canvas_item_set_visible(RID p_item, bool p_visible) = 0;
 	virtual void canvas_item_set_light_mask(RID p_item, int p_mask) = 0;
@@ -1976,8 +1978,8 @@ VARIANT_ENUM_CAST(RenderingServer::InstanceFlags);
 VARIANT_ENUM_CAST(RenderingServer::ShadowCastingSetting);
 VARIANT_ENUM_CAST(RenderingServer::VisibilityRangeFadeMode);
 VARIANT_ENUM_CAST(RenderingServer::NinePatchAxisMode);
-VARIANT_ENUM_CAST(RenderingServer::CanvasItemTextureFilter);
-VARIANT_ENUM_CAST(RenderingServer::CanvasItemTextureRepeat);
+VARIANT_ENUM_CAST(RenderingServer::SamplerFilter);
+VARIANT_ENUM_CAST(RenderingServer::SamplerAddressMode);
 VARIANT_ENUM_CAST(RenderingServer::CanvasGroupMode);
 VARIANT_ENUM_CAST(RenderingServer::CanvasLightMode);
 VARIANT_ENUM_CAST(RenderingServer::CanvasLightBlendMode);

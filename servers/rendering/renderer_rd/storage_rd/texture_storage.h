@@ -115,8 +115,8 @@ private:
 		Color specular_color = Color(1, 1, 1, 1);
 		float shininess = 1.0;
 
-		RS::CanvasItemTextureFilter texture_filter = RS::CANVAS_ITEM_TEXTURE_FILTER_DEFAULT;
-		RS::CanvasItemTextureRepeat texture_repeat = RS::CANVAS_ITEM_TEXTURE_REPEAT_DEFAULT;
+		RS::SamplerFilter texture_filter = RS::SAMPLER_FILTER_DEFAULT;
+		RS::SamplerAddressMode texture_repeat = RS::SAMPLER_ADDRESS_MODE_DEFAULT;
 		CanvasTextureCache info_cache[2];
 
 		InvalidationCallback invalidated_callback = nullptr;
@@ -499,10 +499,10 @@ public:
 	virtual void canvas_texture_set_channel(RID p_canvas_texture, RS::CanvasTextureChannel p_channel, RID p_texture) override;
 	virtual void canvas_texture_set_shading_parameters(RID p_canvas_texture, const Color &p_base_color, float p_shininess) override;
 
-	virtual void canvas_texture_set_texture_filter(RID p_item, RS::CanvasItemTextureFilter p_filter) override;
-	virtual void canvas_texture_set_texture_repeat(RID p_item, RS::CanvasItemTextureRepeat p_repeat) override;
+	virtual void canvas_texture_set_texture_filter(RID p_item, RS::SamplerFilter p_filter) override;
+	virtual void canvas_texture_set_texture_repeat(RID p_item, RS::SamplerAddressMode p_repeat) override;
 
-	CanvasTextureInfo canvas_texture_get_info(RID p_texture, RS::CanvasItemTextureFilter p_base_filter, RS::CanvasItemTextureRepeat p_base_repeat, bool p_use_srgb, bool p_texture_is_data);
+	CanvasTextureInfo canvas_texture_get_info(RID p_texture, RS::SamplerFilter p_base_filter, RS::SamplerAddressMode p_base_repeat, bool p_use_srgb, bool p_texture_is_data);
 	void canvas_texture_set_invalidation_callback(RID p_canvas_texture, InvalidationCallback p_callback, void *p_userdata);
 
 	/* Texture API */

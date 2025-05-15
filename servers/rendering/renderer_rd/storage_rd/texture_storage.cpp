@@ -636,21 +636,21 @@ void TextureStorage::canvas_texture_set_shading_parameters(RID p_canvas_texture,
 	ct->specular_color.a = p_shininess;
 }
 
-void TextureStorage::canvas_texture_set_texture_filter(RID p_canvas_texture, RS::CanvasItemTextureFilter p_filter) {
+void TextureStorage::canvas_texture_set_texture_filter(RID p_canvas_texture, RS::SamplerFilter p_filter) {
 	CanvasTexture *ct = canvas_texture_owner.get_or_null(p_canvas_texture);
 	ERR_FAIL_NULL(ct);
 
 	ct->texture_filter = p_filter;
 }
 
-void TextureStorage::canvas_texture_set_texture_repeat(RID p_canvas_texture, RS::CanvasItemTextureRepeat p_repeat) {
+void TextureStorage::canvas_texture_set_texture_repeat(RID p_canvas_texture, RS::SamplerAddressMode p_repeat) {
 	CanvasTexture *ct = canvas_texture_owner.get_or_null(p_canvas_texture);
 	ERR_FAIL_NULL(ct);
 
 	ct->texture_repeat = p_repeat;
 }
 
-TextureStorage::CanvasTextureInfo TextureStorage::canvas_texture_get_info(RID p_texture, RS::CanvasItemTextureFilter p_base_filter, RS::CanvasItemTextureRepeat p_base_repeat, bool p_use_srgb, bool p_texture_is_data) {
+TextureStorage::CanvasTextureInfo TextureStorage::canvas_texture_get_info(RID p_texture, RS::SamplerFilter p_base_filter, RS::SamplerAddressMode p_base_repeat, bool p_use_srgb, bool p_texture_is_data) {
 	MaterialStorage *material_storage = MaterialStorage::get_singleton();
 
 	CanvasTexture *ct = nullptr;
@@ -675,11 +675,11 @@ TextureStorage::CanvasTextureInfo TextureStorage::canvas_texture_get_info(RID p_
 		return CanvasTextureInfo(); //invalid texture RID
 	}
 
-	RS::CanvasItemTextureFilter filter = ct->texture_filter != RS::CANVAS_ITEM_TEXTURE_FILTER_DEFAULT ? ct->texture_filter : p_base_filter;
-	ERR_FAIL_COND_V(filter == RS::CANVAS_ITEM_TEXTURE_FILTER_DEFAULT, CanvasTextureInfo());
+	RS::SamplerFilter filter = ct->texture_filter != RS::SAMPLER_FILTER_DEFAULT ? ct->texture_filter : p_base_filter;
+	ERR_FAIL_COND_V(filter == RS::SAMPLER_FILTER_DEFAULT, CanvasTextureInfo());
 
-	RS::CanvasItemTextureRepeat repeat = ct->texture_repeat != RS::CANVAS_ITEM_TEXTURE_REPEAT_DEFAULT ? ct->texture_repeat : p_base_repeat;
-	ERR_FAIL_COND_V(repeat == RS::CANVAS_ITEM_TEXTURE_REPEAT_DEFAULT, CanvasTextureInfo());
+	RS::SamplerAddressMode repeat = ct->texture_repeat != RS::SAMPLER_ADDRESS_MODE_DEFAULT ? ct->texture_repeat : p_base_repeat;
+	ERR_FAIL_COND_V(repeat == RS::SAMPLER_ADDRESS_MODE_DEFAULT, CanvasTextureInfo());
 
 	CanvasTextureCache &ctc = ct->info_cache[int(p_use_srgb)];
 	if (!RD::get_singleton()->texture_is_valid(ctc.diffuse) ||

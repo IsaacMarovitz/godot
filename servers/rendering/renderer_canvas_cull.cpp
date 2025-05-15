@@ -67,7 +67,7 @@ void RendererCanvasCull::_dependency_deleted(const RID &p_dependency, Dependency
 	_canvas_cull_singleton->_item_queue_update(item, true);
 }
 
-void RendererCanvasCull::_render_canvas_item_tree(RID p_to_render_target, Canvas::ChildItem *p_child_items, int p_child_item_count, const Transform2D &p_transform, const Rect2 &p_clip_rect, const Color &p_modulate, RendererCanvasRender::Light *p_lights, RendererCanvasRender::Light *p_directional_lights, RenderingServer::CanvasItemTextureFilter p_default_filter, RenderingServer::CanvasItemTextureRepeat p_default_repeat, bool p_snap_2d_vertices_to_pixel, uint32_t p_canvas_cull_mask, RenderingMethod::RenderInfo *r_render_info) {
+void RendererCanvasCull::_render_canvas_item_tree(RID p_to_render_target, Canvas::ChildItem *p_child_items, int p_child_item_count, const Transform2D &p_transform, const Rect2 &p_clip_rect, const Color &p_modulate, RendererCanvasRender::Light *p_lights, RendererCanvasRender::Light *p_directional_lights, RenderingServer::SamplerFilter p_default_filter, RenderingServer::SamplerAddressMode p_default_repeat, bool p_snap_2d_vertices_to_pixel, uint32_t p_canvas_cull_mask, RenderingMethod::RenderInfo *r_render_info) {
 	RENDER_TIMESTAMP("Cull CanvasItem Tree");
 
 	// This is used to avoid passing the camera transform down the rendering
@@ -481,7 +481,7 @@ void RendererCanvasCull::_cull_canvas_item(Item *p_canvas_item, const Transform2
 	}
 }
 
-void RendererCanvasCull::render_canvas(RID p_render_target, Canvas *p_canvas, const Transform2D &p_transform, RendererCanvasRender::Light *p_lights, RendererCanvasRender::Light *p_directional_lights, const Rect2 &p_clip_rect, RenderingServer::CanvasItemTextureFilter p_default_filter, RenderingServer::CanvasItemTextureRepeat p_default_repeat, bool p_snap_2d_transforms_to_pixel, bool p_snap_2d_vertices_to_pixel, uint32_t canvas_cull_mask, RenderingMethod::RenderInfo *r_render_info) {
+void RendererCanvasCull::render_canvas(RID p_render_target, Canvas *p_canvas, const Transform2D &p_transform, RendererCanvasRender::Light *p_lights, RendererCanvasRender::Light *p_directional_lights, const Rect2 &p_clip_rect, RenderingServer::SamplerFilter p_default_filter, RenderingServer::SamplerAddressMode p_default_repeat, bool p_snap_2d_transforms_to_pixel, bool p_snap_2d_vertices_to_pixel, uint32_t canvas_cull_mask, RenderingMethod::RenderInfo *r_render_info) {
 	RENDER_TIMESTAMP("> Render Canvas");
 
 	sdf_used = false;
@@ -2431,20 +2431,20 @@ void RendererCanvasCull::canvas_texture_set_shading_parameters(RID p_canvas_text
 	RSG::texture_storage->canvas_texture_set_shading_parameters(p_canvas_texture, p_base_color, p_shininess);
 }
 
-void RendererCanvasCull::canvas_texture_set_texture_filter(RID p_canvas_texture, RS::CanvasItemTextureFilter p_filter) {
+void RendererCanvasCull::canvas_texture_set_texture_filter(RID p_canvas_texture, RS::SamplerFilter p_filter) {
 	RSG::texture_storage->canvas_texture_set_texture_filter(p_canvas_texture, p_filter);
 }
 
-void RendererCanvasCull::canvas_texture_set_texture_repeat(RID p_canvas_texture, RS::CanvasItemTextureRepeat p_repeat) {
+void RendererCanvasCull::canvas_texture_set_texture_repeat(RID p_canvas_texture, RS::SamplerAddressMode p_repeat) {
 	RSG::texture_storage->canvas_texture_set_texture_repeat(p_canvas_texture, p_repeat);
 }
 
-void RendererCanvasCull::canvas_item_set_default_texture_filter(RID p_item, RS::CanvasItemTextureFilter p_filter) {
+void RendererCanvasCull::canvas_item_set_default_texture_filter(RID p_item, RS::SamplerFilter p_filter) {
 	Item *ci = canvas_item_owner.get_or_null(p_item);
 	ERR_FAIL_NULL(ci);
 	ci->texture_filter = p_filter;
 }
-void RendererCanvasCull::canvas_item_set_default_texture_repeat(RID p_item, RS::CanvasItemTextureRepeat p_repeat) {
+void RendererCanvasCull::canvas_item_set_default_texture_repeat(RID p_item, RS::SamplerAddressMode p_repeat) {
 	Item *ci = canvas_item_owner.get_or_null(p_item);
 	ERR_FAIL_NULL(ci);
 	ci->texture_repeat = p_repeat;

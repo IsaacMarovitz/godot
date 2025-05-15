@@ -830,7 +830,7 @@ void Fog::volumetric_fog_update(const VolumetricFogSettings &p_settings, const P
 			RD::Uniform u;
 			u.uniform_type = RD::UNIFORM_TYPE_SAMPLER;
 			u.binding = 7;
-			u.append_id(material_storage->sampler_rd_get_default(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED));
+			u.append_id(material_storage->sampler_rd_get_default(RS::SAMPLER_FILTER_LINEAR, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE));
 			uniforms.push_back(u);
 			copy_uniforms.push_back(u);
 		}
@@ -892,7 +892,7 @@ void Fog::volumetric_fog_update(const VolumetricFogSettings &p_settings, const P
 			RD::Uniform u;
 			u.uniform_type = RD::UNIFORM_TYPE_SAMPLER;
 			u.binding = 13;
-			u.append_id(material_storage->sampler_rd_get_default(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED));
+			u.append_id(material_storage->sampler_rd_get_default(RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE));
 			uniforms.push_back(u);
 			copy_uniforms.push_back(u);
 		}

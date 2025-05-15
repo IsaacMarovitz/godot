@@ -132,7 +132,7 @@ void BokehDOF::bokeh_dof_compute(const BokehBuffers &p_buffers, RID p_camera_att
 	bokeh.push_constant.blur_scale = 0.5;
 
 	// setup our uniforms
-	RID default_sampler = material_storage->sampler_rd_get_default(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+	RID default_sampler = material_storage->sampler_rd_get_default(RS::SAMPLER_FILTER_LINEAR, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 
 	RD::Uniform u_base_texture(RD::UNIFORM_TYPE_SAMPLER_WITH_TEXTURE, 0, Vector<RID>({ default_sampler, p_buffers.base_texture }));
 	RD::Uniform u_depth_texture(RD::UNIFORM_TYPE_SAMPLER_WITH_TEXTURE, 0, Vector<RID>({ default_sampler, p_buffers.depth_texture }));
@@ -323,7 +323,7 @@ void BokehDOF::bokeh_dof_raster(const BokehBuffers &p_buffers, RID p_camera_attr
 	bokeh.push_constant.blur_size = bokeh_size;
 
 	// setup our uniforms
-	RID default_sampler = material_storage->sampler_rd_get_default(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+	RID default_sampler = material_storage->sampler_rd_get_default(RS::SAMPLER_FILTER_LINEAR, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 
 	RD::Uniform u_base_texture(RD::UNIFORM_TYPE_SAMPLER_WITH_TEXTURE, 0, Vector<RID>({ default_sampler, p_buffers.base_texture }));
 	RD::Uniform u_depth_texture(RD::UNIFORM_TYPE_SAMPLER_WITH_TEXTURE, 0, Vector<RID>({ default_sampler, p_buffers.depth_texture }));

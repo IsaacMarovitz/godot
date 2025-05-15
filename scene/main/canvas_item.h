@@ -108,8 +108,8 @@ private:
 
 	ClipChildrenMode clip_children_mode = CLIP_CHILDREN_DISABLED;
 
-	mutable RS::CanvasItemTextureFilter texture_filter_cache = RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR;
-	mutable RS::CanvasItemTextureRepeat texture_repeat_cache = RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED;
+	mutable RS::SamplerFilter texture_filter_cache = RS::SAMPLER_FILTER_LINEAR;
+	mutable RS::SamplerAddressMode texture_repeat_cache = RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
 	TextureFilter texture_filter = TEXTURE_FILTER_PARENT_NODE;
 	TextureRepeat texture_repeat = TEXTURE_REPEAT_PARENT_NODE;
 
@@ -157,8 +157,8 @@ protected:
 	bool _get(const StringName &p_name, Variant &r_ret) const;
 	void _get_property_list(List<PropertyInfo> *p_list) const;
 
-	virtual void _update_self_texture_repeat(RS::CanvasItemTextureRepeat p_texture_repeat);
-	virtual void _update_self_texture_filter(RS::CanvasItemTextureFilter p_texture_filter);
+	virtual void _update_self_texture_repeat(RS::SamplerAddressMode p_texture_repeat);
+	virtual void _update_self_texture_filter(RS::SamplerFilter p_texture_filter);
 
 	_FORCE_INLINE_ void _notify_transform() {
 		_notify_transform(this);

@@ -3882,16 +3882,16 @@ void Viewport::set_default_canvas_item_texture_filter(DefaultCanvasItemTextureFi
 	default_canvas_item_texture_filter = p_filter;
 	switch (default_canvas_item_texture_filter) {
 		case DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST:
-			RS::get_singleton()->viewport_set_default_canvas_item_texture_filter(viewport, RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST);
+			RS::get_singleton()->viewport_set_default_canvas_item_texture_filter(viewport, RS::SAMPLER_FILTER_NEAREST);
 			break;
 		case DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_LINEAR:
-			RS::get_singleton()->viewport_set_default_canvas_item_texture_filter(viewport, RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR);
+			RS::get_singleton()->viewport_set_default_canvas_item_texture_filter(viewport, RS::SAMPLER_FILTER_LINEAR);
 			break;
 		case DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS:
-			RS::get_singleton()->viewport_set_default_canvas_item_texture_filter(viewport, RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS);
+			RS::get_singleton()->viewport_set_default_canvas_item_texture_filter(viewport, RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS);
 			break;
 		case DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS:
-			RS::get_singleton()->viewport_set_default_canvas_item_texture_filter(viewport, RS::CANVAS_ITEM_TEXTURE_FILTER_NEAREST_WITH_MIPMAPS);
+			RS::get_singleton()->viewport_set_default_canvas_item_texture_filter(viewport, RS::SAMPLER_FILTER_NEAREST_WITH_MIPMAPS);
 			break;
 		default: {
 		}
@@ -3915,13 +3915,13 @@ void Viewport::set_default_canvas_item_texture_repeat(DefaultCanvasItemTextureRe
 
 	switch (default_canvas_item_texture_repeat) {
 		case DEFAULT_CANVAS_ITEM_TEXTURE_REPEAT_DISABLED:
-			RS::get_singleton()->viewport_set_default_canvas_item_texture_repeat(viewport, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+			RS::get_singleton()->viewport_set_default_canvas_item_texture_repeat(viewport, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 			break;
 		case DEFAULT_CANVAS_ITEM_TEXTURE_REPEAT_ENABLED:
-			RS::get_singleton()->viewport_set_default_canvas_item_texture_repeat(viewport, RS::CANVAS_ITEM_TEXTURE_REPEAT_ENABLED);
+			RS::get_singleton()->viewport_set_default_canvas_item_texture_repeat(viewport, RS::SAMPLER_ADDRESS_MODE_REPEAT);
 			break;
 		case DEFAULT_CANVAS_ITEM_TEXTURE_REPEAT_MIRROR:
-			RS::get_singleton()->viewport_set_default_canvas_item_texture_repeat(viewport, RS::CANVAS_ITEM_TEXTURE_REPEAT_MIRROR);
+			RS::get_singleton()->viewport_set_default_canvas_item_texture_repeat(viewport, RS::SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT);
 			break;
 		default: {
 		}

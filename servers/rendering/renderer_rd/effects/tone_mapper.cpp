@@ -134,8 +134,8 @@ void ToneMapper::tonemapper(RID p_source_color, RID p_dst_framebuffer, const Ton
 		mode += 6;
 	}
 
-	RID default_sampler = material_storage->sampler_rd_get_default(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
-	RID default_mipmap_sampler = material_storage->sampler_rd_get_default(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+	RID default_sampler = material_storage->sampler_rd_get_default(RS::SAMPLER_FILTER_LINEAR, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+	RID default_mipmap_sampler = material_storage->sampler_rd_get_default(RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 
 	RD::Uniform u_source_color(RD::UNIFORM_TYPE_SAMPLER_WITH_TEXTURE, 0, Vector<RID>({ default_sampler, p_source_color }));
 
@@ -213,8 +213,8 @@ void ToneMapper::tonemapper(RD::DrawListID p_subpass_draw_list, RID p_source_col
 
 	tonemap.push_constant.flags |= p_settings.convert_to_srgb ? TONEMAP_FLAG_CONVERT_TO_SRGB : 0;
 
-	RID default_sampler = material_storage->sampler_rd_get_default(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
-	RID default_mipmap_sampler = material_storage->sampler_rd_get_default(RS::CANVAS_ITEM_TEXTURE_FILTER_LINEAR_WITH_MIPMAPS, RS::CANVAS_ITEM_TEXTURE_REPEAT_DISABLED);
+	RID default_sampler = material_storage->sampler_rd_get_default(RS::SAMPLER_FILTER_LINEAR, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
+	RID default_mipmap_sampler = material_storage->sampler_rd_get_default(RS::SAMPLER_FILTER_LINEAR_WITH_MIPMAPS, RS::SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
 
 	RD::Uniform u_source_color;
 	u_source_color.uniform_type = RD::UNIFORM_TYPE_INPUT_ATTACHMENT;
